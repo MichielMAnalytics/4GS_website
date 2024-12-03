@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .circuit {
+            stroke: #00f7ff;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .glow {
+            filter: url(#glow);
+        }
+        .bitcoin {
+            fill: #ff9900;
+        }
+    </style>
+    <defs>
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+            <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <linearGradient id="cyber-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#00f7ff;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ff00ff;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+    
+    <!-- Background circuit pattern -->
+    <g class="circuit glow">
+        <path d="M50,250 L150,250 L200,300 L300,300 L350,250 L450,250"/>
+        <path d="M250,50 L250,150 L300,200 L300,300 L250,350 L250,450"/>
+        <path d="M100,100 L150,150 L200,150 L250,100"/>
+        <path d="M400,100 L350,150 L300,150 L250,100"/>
+        <path d="M100,400 L150,350 L200,350 L250,400"/>
+        <path d="M400,400 L350,350 L300,350 L250,400"/>
+    </g>
+    
+    <!-- Central geometric shape -->
+    <path class="glow" fill="url(#cyber-gradient)" d="M250,100 L350,175 L350,325 L250,400 L150,325 L150,175 Z"/>
+    
+    <!-- Bitcoin logo -->
+    <g transform="translate(225,225) scale(0.5)" class="bitcoin glow">
+        <path d="M50,25 C22.4,25 0,47.4 0,75 C0,102.6 22.4,125 50,125 C77.6,125 100,102.6 100,75 C100,47.4 77.6,25 50,25 Z M50,35 C72.1,35 90,52.9 90,75 C90,97.1 72.1,115 50,115 C27.9,115 10,97.1 10,75 C10,52.9 27.9,35 50,35 Z"/>
+        <path d="M65,55 L55,55 L55,45 L45,45 L45,55 L35,55 L35,95 L45,95 L45,105 L55,105 L55,95 L65,95 L65,80 C70,80 75,75 75,70 C75,65 70,60 65,60 L65,55 Z"/>
+    </g>
+</svg> 
