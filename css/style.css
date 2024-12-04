@@ -618,11 +618,9 @@ canvas {
     gap: 10px;
     width: 80%;
     max-width: 300px;
-    background: rgba(0, 0, 0, 0.8);
+    background: transparent;
     padding: 15px;
     border-radius: 15px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     z-index: 100001;
 }
 
@@ -663,14 +661,150 @@ canvas {
         display: none !important; /* Remove custom cursor on mobile */
     }
 
-    /* Ensure menu is always visible */
-    .mobile-resources-menu {
-        background: rgba(0, 0, 0, 0.95); /* More opaque background */
+    /* Update menu buttons to be more visible without background */
+    .mobile-resources-menu .social-button {
+        background: rgba(0, 0, 0, 0.7); /* Dark background for buttons only */
+        border: 1px solid rgba(0, 240, 255, 0.8);
+        box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        padding: 12px 20px;
+    }
+}
+
+/* Moon styles */
+.moon {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #ffffff, #e6e6e6);
+    border-radius: 50%;
+    box-shadow: 
+        inset -12px -12px 18px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(255, 255, 255, 0.6),
+        0 0 35px rgba(255, 255, 255, 0.4),
+        0 0 50px rgba(255, 255, 255, 0.3),
+        0 0 75px rgba(255, 255, 255, 0.2);
+    z-index: 998;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.moon::after {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0.1) 40%,
+        rgba(255, 255, 255, 0.05) 60%,
+        transparent 70%
+    );
+    z-index: -1;
+}
+
+.moon::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 15px;
+    height: 15px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    box-shadow: 
+        22px -7px 0 rgba(0, 0, 0, 0.05),
+        -7px 22px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Update mobile styles for moon */
+@media (max-width: 600px) {
+    .moon {
+        width: 45px;
+        height: 45px;
+        top: 20px;
+        right: 20px;
+        box-shadow: 
+            inset -12px -12px 18px rgba(0, 0, 0, 0.3),
+            0 0 15px rgba(255, 255, 255, 0.6),
+            0 0 25px rgba(255, 255, 255, 0.4),
+            0 0 40px rgba(255, 255, 255, 0.3),
+            0 0 60px rgba(255, 255, 255, 0.2);
     }
 
-    .mobile-resources-menu .social-button {
-        background: rgba(0, 240, 255, 0.15); /* More visible button background */
-        border: 1px solid rgba(0, 240, 255, 0.8); /* More visible border */
-        box-shadow: 0 0 10px rgba(0, 240, 255, 0.3); /* Add glow effect */
+    .moon::after {
+        top: -15px;
+        left: -15px;
+        right: -15px;
+        bottom: -15px;
+    }
+
+    .moon::before {
+        top: 9px;
+        left: 9px;
+        width: 12px;
+        height: 12px;
+        box-shadow: 
+            18px -6px 0 rgba(0, 0, 0, 0.05),
+            -6px 18px 0 rgba(0, 0, 0, 0.05);
+    }
+}
+
+.easter-egg-container {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    display: none;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    z-index: 1001;
+}
+
+.easter-egg-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.easter-egg-text {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    color: #00F0FF;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    text-align: right;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    width: 150px;
+}
+
+@media (max-width: 600px) {
+    .easter-egg-container {
+        top: 20px;
+        right: 20px;
+    }
+    
+    .easter-egg-image {
+        width: 45px;
+        height: 45px;
+    }
+
+    .easter-egg-text {
+        top: 55px;
+        font-size: 10px;
+        width: 120px;
     }
 } 

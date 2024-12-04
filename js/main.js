@@ -888,6 +888,38 @@ function initializeMobileMenu() {
     }
 }
 
+// Add near the end of the file
+function initializeEasterEgg() {
+    const moon = document.querySelector('.moon');
+    const easterEgg = document.querySelector('.easter-egg-container');
+    let timeout;
+
+    moon.addEventListener('click', () => {
+        // Show easter egg
+        easterEgg.style.display = 'flex';
+        gsap.from(easterEgg, {
+            opacity: 0,
+            y: -20,
+            duration: 0.3
+        });
+
+        // Clear existing timeout if any
+        if (timeout) clearTimeout(timeout);
+
+        // Hide after 5 seconds
+        timeout = setTimeout(() => {
+            gsap.to(easterEgg, {
+                opacity: 0,
+                y: -20,
+                duration: 0.3,
+                onComplete: () => {
+                    easterEgg.style.display = 'none';
+                }
+            });
+        }, 5000);
+    });
+}
+
 // Update the load event listener
 window.addEventListener('load', () => {
     // First show loader
@@ -899,6 +931,7 @@ window.addEventListener('load', () => {
     startShapeMorphing();
     createSciFiText();
     initializeMobileMenu();
+    initializeEasterEgg();
     
     // Remove loader after delay
     setTimeout(() => {
