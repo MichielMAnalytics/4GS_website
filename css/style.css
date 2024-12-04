@@ -629,6 +629,14 @@ canvas {
 .mobile-resources-menu .social-button {
     width: 100%;
     text-align: center;
+    position: relative;
+    z-index: 100000;
+    pointer-events: auto !important;
+}
+
+.mobile-resources-menu .social-button:hover {
+    background: rgba(0, 240, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 /* Update the media query for mobile */
