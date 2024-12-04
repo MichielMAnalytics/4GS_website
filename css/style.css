@@ -616,9 +616,8 @@ canvas {
     display: none;
     flex-direction: column;
     gap: 10px;
-    width: 80%;
-    max-width: 300px;
-    background: rgba(0, 0, 0, 0.8);
+    width: auto;
+    min-width: 200px;
     padding: 15px;
     border-radius: 15px;
     backdrop-filter: blur(10px);
@@ -672,5 +671,33 @@ canvas {
         background: rgba(0, 240, 255, 0.15); /* More visible button background */
         border: 1px solid rgba(0, 240, 255, 0.8); /* More visible border */
         box-shadow: 0 0 10px rgba(0, 240, 255, 0.3); /* Add glow effect */
+    }
+
+    /* Update initialization text styles for mobile */
+    .initialization-text {
+        font-size: 0.7rem !important; /* Smaller font on mobile */
+        max-width: 80vw !important; /* Prevent text from going off screen */
+        left: 50% !important; /* Center horizontally */
+        transform: translateX(-50%) !important; /* Center horizontally */
+        white-space: normal !important; /* Allow text wrapping */
+        text-align: center !important;
+    }
+
+    /* Update menu background for mobile */
+    .mobile-resources-menu {
+        background: rgba(0, 0, 0, 0.95);
+        width: auto; /* Ensure width matches content */
+        padding: 10px; /* Slightly reduced padding */
+        border: 1px solid rgba(0, 240, 255, 0.3); /* Add subtle border */
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Add shadow for depth */
+    }
+
+    .mobile-resources-menu .social-button {
+        background: rgba(0, 240, 255, 0.15);
+        border: 1px solid rgba(0, 240, 255, 0.8);
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+        padding: 12px 24px; /* Consistent padding */
+        width: 200px; /* Fixed width for all buttons */
+        margin: 2px 0; /* Small vertical spacing */
     }
 } 
