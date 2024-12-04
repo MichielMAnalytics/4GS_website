@@ -733,14 +733,23 @@ function createSciFiText() {
                             
                             while (attempts < maxAttempts && !foundPosition) {
                                 // On mobile, divide screen into vertical sections to prevent overlap
-                                const availableHeight = window.innerHeight - textHeight - 150; // Leave space for resources button
+                                const availableHeight = window.innerHeight - textHeight - 200; // Increased space for resources button
                                 const section = availableHeight / 3; // Divide screen into thirds
                                 const sectionIndex = Math.floor(attempts / (maxAttempts / 3));
                                 
                                 const left = Math.random() * (window.innerWidth - textWidth - padding * 2) + padding;
-                                const top = isMobile 
-                                    ? (sectionIndex * section) + Math.random() * (section - textHeight)
-                                    : Math.random() * (window.innerHeight - textHeight - padding * 2) + padding;
+                                let top;
+                                
+                                if (isMobile) {
+                                    // Keep thoughts away from the bottom of the screen on mobile
+                                    const bottomPadding = 150; // Space for resources button and menu
+                                    top = Math.min(
+                                        (sectionIndex * section) + Math.random() * (section - textHeight),
+                                        window.innerHeight - bottomPadding - textHeight
+                                    );
+                                } else {
+                                    top = Math.random() * (window.innerHeight - textHeight - padding * 2) + padding;
+                                }
 
                                 // Check for overlap with existing thoughts
                                 const existingThoughts = document.querySelectorAll('.ai-thought');
@@ -774,10 +783,13 @@ function createSciFiText() {
                                 attempts++;
                             }
 
-                            // If no position found, use fallback position
+                            // If no position found, use fallback position that respects bottom padding
                             if (!foundPosition) {
                                 thought.style.left = Math.random() * (window.innerWidth - textWidth - padding * 2) + padding + 'px';
-                                thought.style.top = Math.random() * (window.innerHeight - textHeight - padding * 2) + padding + 'px';
+                                const maxTop = isMobile ? 
+                                    window.innerHeight - 150 - textHeight : // Keep away from resources button on mobile
+                                    window.innerHeight - textHeight - padding * 2;
+                                thought.style.top = Math.random() * maxTop + padding + 'px';
                             }
 
                             document.body.appendChild(thought);
@@ -821,15 +833,20 @@ function initializeMobileMenu() {
     let isMenuOpen = false;
 
     if (resourcesButton && resourcesMenu) {
-        resourcesButton.addEventListener('click', (e) => {
+        // Remove existing click listeners
+        resourcesButton.replaceWith(resourcesButton.cloneNode(true));
+        const newResourcesButton = document.querySelector('.mobile-resources-button');
+        
+        newResourcesButton.addEventListener('click', (e) => {
+            e.preventDefault();
             e.stopPropagation();
             isMenuOpen = !isMenuOpen;
             
             if (isMenuOpen) {
                 resourcesMenu.style.display = 'flex';
-                gsap.from(resourcesMenu, {
-                    opacity: 0,
-                    y: 20,
+                gsap.to(resourcesMenu, {
+                    opacity: 1,
+                    y: 0,
                     duration: 0.3,
                     ease: "power2.out"
                 });
@@ -846,9 +863,9 @@ function initializeMobileMenu() {
             }
         });
 
-        // Close menu when clicking outside
+        // Update outside click handler
         document.addEventListener('click', (e) => {
-            if (isMenuOpen && !resourcesMenu.contains(e.target)) {
+            if (isMenuOpen && !resourcesMenu.contains(e.target) && e.target !== newResourcesButton) {
                 isMenuOpen = false;
                 gsap.to(resourcesMenu, {
                     opacity: 0,
