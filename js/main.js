@@ -290,6 +290,10 @@ class Glow {
         this.timer = Math.random() * Math.PI * 2;
         this.color = neonColors[index % neonColors.length];
         this.imageSize = 40; // Size of the agent image
+        
+        // Add mobile detection
+        this.isMobile = window.innerWidth <= 600;
+        this.speed = this.isMobile ? 2 : glowSpeed; // Slower speed on mobile
     }
 
     draw() {
@@ -328,17 +332,19 @@ class Glow {
         this.velocity.y += Math.cos(this.timer) * 0.15;
 
         if (Math.random() < 0.02) {
-            this.velocity.x += (Math.random() - 0.5) * 3;
-            this.velocity.y += (Math.random() - 0.5) * 3;
+            this.velocity.x += (Math.random() - 0.5) * (this.isMobile ? 1.5 : 3);
+            this.velocity.y += (Math.random() - 0.5) * (this.isMobile ? 1.5 : 3);
         }
 
-        this.position.x += this.velocity.x * glowSpeed;
-        this.position.y += this.velocity.y * glowSpeed;
+        this.position.x += this.velocity.x * this.speed;
+        this.position.y += this.velocity.y * this.speed;
 
+        // Reduce maximum speed on mobile
+        const maxSpeed = this.isMobile ? 3 : 6;
         const speed = Math.sqrt(this.velocity.x ** 2 + this.velocity.y ** 2);
-        if (speed > 6) {
-            this.velocity.x = (this.velocity.x / speed) * 6;
-            this.velocity.y = (this.velocity.y / speed) * 6;
+        if (speed > maxSpeed) {
+            this.velocity.x = (this.velocity.x / speed) * maxSpeed;
+            this.velocity.y = (this.velocity.y / speed) * maxSpeed;
         }
 
         if (this.position.x < 0 || this.position.x > canvas.width) {
@@ -708,26 +714,38 @@ function createSciFiText() {
                             thought.style.opacity = '0';
                             thought.style.zIndex = '1000';
                             
-                            // Create temporary element to measure text width
-                            thought.style.visibility = 'hidden';
                             thought.textContent = aiThoughts[Math.floor(Math.random() * aiThoughts.length)];
+                            
+                            // Add to body temporarily to measure
+                            thought.style.visibility = 'hidden';
                             document.body.appendChild(thought);
                             const textWidth = thought.offsetWidth;
                             const textHeight = thought.offsetHeight;
                             document.body.removeChild(thought);
                             thought.style.visibility = 'visible';
 
-                            // Try to find a position that doesn't overlap with existing thoughts
+                            // Adjust positioning logic for mobile
+                            const isMobile = window.innerWidth <= 600;
+                            const padding = isMobile ? 30 : 50;
+                            const maxAttempts = 50;
                             let attempts = 0;
                             let foundPosition = false;
-                            while (attempts < 50 && !foundPosition) {
-                                const left = Math.random() * (window.innerWidth - textWidth);
-                                const top = Math.random() * (window.innerHeight - textHeight);
+                            
+                            while (attempts < maxAttempts && !foundPosition) {
+                                // On mobile, divide screen into vertical sections to prevent overlap
+                                const availableHeight = window.innerHeight - textHeight - 150; // Leave space for resources button
+                                const section = availableHeight / 3; // Divide screen into thirds
+                                const sectionIndex = Math.floor(attempts / (maxAttempts / 3));
                                 
+                                const left = Math.random() * (window.innerWidth - textWidth - padding * 2) + padding;
+                                const top = isMobile 
+                                    ? (sectionIndex * section) + Math.random() * (section - textHeight)
+                                    : Math.random() * (window.innerHeight - textHeight - padding * 2) + padding;
+
                                 // Check for overlap with existing thoughts
                                 const existingThoughts = document.querySelectorAll('.ai-thought');
                                 let hasOverlap = false;
-                                
+
                                 for (const existing of existingThoughts) {
                                     const rect1 = {
                                         left: left,
@@ -737,32 +755,31 @@ function createSciFiText() {
                                     };
                                     const rect2 = existing.getBoundingClientRect();
                                     
-                                    // Add padding around each thought
-                                    const padding = 50;
+                                    const verticalPadding = isMobile ? 40 : padding;
                                     if (!(rect1.right + padding < rect2.left - padding || 
                                           rect1.left - padding > rect2.right + padding || 
-                                          rect1.bottom + padding < rect2.top - padding || 
-                                          rect1.top - padding > rect2.bottom + padding)) {
+                                          rect1.bottom + verticalPadding < rect2.top - verticalPadding || 
+                                          rect1.top - verticalPadding > rect2.bottom + verticalPadding)) {
                                         hasOverlap = true;
                                         break;
                                     }
                                 }
-                                
+
                                 if (!hasOverlap) {
                                     thought.style.left = left + 'px';
                                     thought.style.top = top + 'px';
                                     foundPosition = true;
                                 }
-                                
+
                                 attempts++;
                             }
-                            
-                            // If no non-overlapping position found, use a fallback position
+
+                            // If no position found, use fallback position
                             if (!foundPosition) {
-                                thought.style.left = Math.random() * (window.innerWidth - textWidth) + 'px';
-                                thought.style.top = Math.random() * (window.innerHeight - textHeight) + 'px';
+                                thought.style.left = Math.random() * (window.innerWidth - textWidth - padding * 2) + padding + 'px';
+                                thought.style.top = Math.random() * (window.innerHeight - textHeight - padding * 2) + padding + 'px';
                             }
-                            
+
                             document.body.appendChild(thought);
                             
                             // Rest of the animation code remains the same

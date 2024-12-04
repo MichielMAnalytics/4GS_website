@@ -604,7 +604,7 @@ canvas {
     transition: all 0.3s ease;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    z-index: 1000;
+    z-index: 10000;
 }
 
 .mobile-resources-menu {
@@ -646,5 +646,12 @@ canvas {
         white-space: normal;
         width: 90%;
         line-height: 1.3;
+    }
+
+    /* Update AI thought text styles for mobile */
+    .ai-thought {
+        font-size: 16px !important; /* Smaller font size on mobile */
+        line-height: 1.4 !important;
+        margin-bottom: 20px !important; /* Add space between thoughts */
     }
 } 
