@@ -687,7 +687,7 @@ canvas {
         0 0 35px rgba(255, 255, 255, 0.4),
         0 0 50px rgba(255, 255, 255, 0.3),
         0 0 75px rgba(255, 255, 255, 0.2);
-    z-index: 998;
+    z-index: 99999;
     pointer-events: auto;
     cursor: pointer;
 }
@@ -707,7 +707,7 @@ canvas {
         rgba(255, 255, 255, 0.05) 60%,
         transparent 70%
     );
-    z-index: -1;
+    z-index: 99998;
 }
 
 .moon::before {
@@ -737,6 +737,7 @@ canvas {
             0 0 25px rgba(255, 255, 255, 0.4),
             0 0 40px rgba(255, 255, 255, 0.3),
             0 0 60px rgba(255, 255, 255, 0.2);
+        z-index: 99999;
     }
 
     .moon::after {
@@ -744,6 +745,8 @@ canvas {
         left: -15px;
         right: -15px;
         bottom: -15px;
+        z-index: 99998;
+        pointer-events: none;
     }
 
     .moon::before {
@@ -765,7 +768,7 @@ canvas {
     flex-direction: column;
     align-items: flex-end;
     gap: 10px;
-    z-index: 1001;
+    z-index: 100000;
 }
 
 .easter-egg-image {
