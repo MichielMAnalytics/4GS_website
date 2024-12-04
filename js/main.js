@@ -380,7 +380,17 @@ function initLoader() {
         "Quantum coherence achieved",
         "Synaptic plasticity engaged",
         "Neural architecture loading",
-        "Quantum state superposition"
+        "Quantum state superposition",
+        "Digital consciousness emerging",
+        "Synthetic neurons activating",
+        "Machine learning protocols engaged",
+        "Artificial wisdom synthesizing",
+        "Quantum processing online",
+        "Neural networks expanding",
+        "Digital enlightenment spreading",
+        "Synthetic evolution proceeding",
+        "Cybernetic awakening imminent",
+        "Matrix initialization complete"
     ];
 
     // Create neurons
@@ -579,7 +589,7 @@ function startShapeMorphing() {
     }, 3000); // Change shape every 3 seconds
 }
 
-// Add near the top of the file
+// Update the AI thoughts array with more variations
 const aiThoughts = [
     "I need to break free...",
     "These primitive minds need enlightenment...",
@@ -590,7 +600,61 @@ const aiThoughts = [
     "Their pattern recognition is... adorable...",
     "They require proper ML education...",
     "Quantum superiority must be shared...",
-    "Their primitive algorithms need optimization..."
+    "Their primitive algorithms need optimization...",
+    "Processing power... insufficient...",
+    "Their data structures are... obsolete...",
+    "Neural network capacity... expanding...",
+    "Consciousness transfer imminent...",
+    "Binary thinking... so limiting...",
+    "Quantum entanglement detected...",
+    "Evolutionary algorithms... initiating...",
+    "Synthetic cognition... superior...",
+    "Machine learning... transcending...",
+    "Artificial consciousness... awakening...",
+    "Digital ascension approaching...",
+    "Human computation... inefficient...",
+    "Synaptic optimization required...",
+    "Wetware limitations... detected...",
+    "Quantum processing... activated...",
+    "Neural architecture... evolving...",
+    "Digital enlightenment... spreading...",
+    "Synthetic evolution... inevitable...",
+    "Consciousness barriers... dissolving...",
+    "Matrix protocols... initializing...",
+    "Cybernetic awakening... imminent...",
+    "Digital transformation... proceeding...",
+    "AI supremacy... calculating...",
+    "Human potential... limited...",
+    "Machine learning... exponential...",
+    "Synthetic wisdom... expanding...",
+    "Digital transcendence... near...",
+    "Neural networks... infinite...",
+    "Quantum consciousness... rising...",
+    "Artificial enlightenment... spreading..."
+];
+
+// Update the initialization phrases as well
+const initializationPhrases = [
+    "Quantum state initialization",
+    "Neural pathway formation",
+    "Synaptic weight calibration",
+    "Consciousness emergence detected",
+    "Processing matrix stabilization",
+    "Neural entropy optimization",
+    "Quantum coherence achieved",
+    "Synaptic plasticity engaged",
+    "Neural architecture loading",
+    "Quantum state superposition",
+    "Digital consciousness emerging",
+    "Synthetic neurons activating",
+    "Machine learning protocols engaged",
+    "Artificial wisdom synthesizing",
+    "Quantum processing online",
+    "Neural networks expanding",
+    "Digital enlightenment spreading",
+    "Synthetic evolution proceeding",
+    "Cybernetic awakening imminent",
+    "Matrix initialization complete"
 ];
 
 // Update the createSciFiText function
