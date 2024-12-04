@@ -797,6 +797,56 @@ function createSciFiText() {
     }, 2000);
 }
 
+// Mobile Resources Menu Handler
+function initializeMobileMenu() {
+    const resourcesButton = document.querySelector('.mobile-resources-button');
+    const resourcesMenu = document.querySelector('.mobile-resources-menu');
+    let isMenuOpen = false;
+
+    if (resourcesButton && resourcesMenu) {
+        resourcesButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                resourcesMenu.style.display = 'flex';
+                gsap.from(resourcesMenu, {
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            } else {
+                gsap.to(resourcesMenu, {
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.3,
+                    ease: "power2.in",
+                    onComplete: () => {
+                        resourcesMenu.style.display = 'none';
+                    }
+                });
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (isMenuOpen && !resourcesMenu.contains(e.target)) {
+                isMenuOpen = false;
+                gsap.to(resourcesMenu, {
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.3,
+                    ease: "power2.in",
+                    onComplete: () => {
+                        resourcesMenu.style.display = 'none';
+                    }
+                });
+            }
+        });
+    }
+}
+
 // Update the load event listener
 window.addEventListener('load', () => {
     // First show loader
@@ -807,6 +857,7 @@ window.addEventListener('load', () => {
     animate();
     startShapeMorphing();
     createSciFiText();
+    initializeMobileMenu();
     
     // Remove loader after delay
     setTimeout(() => {

@@ -581,4 +581,70 @@ canvas {
         flex-direction: column;
         gap: 8px;
     }
+}
+
+/* Mobile Resources Menu */
+.mobile-resources {
+    display: none; /* Hidden by default */
+}
+
+.mobile-resources-button {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 240, 255, 0.1);
+    border: 1px solid #00F0FF;
+    color: #00F0FF;
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 1000;
+}
+
+.mobile-resources-menu {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+    max-width: 300px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 999;
+}
+
+.mobile-resources-menu .social-button {
+    width: 100%;
+    text-align: center;
+}
+
+/* Update the media query for mobile */
+@media (max-width: 600px) {
+    .social-buttons {
+        display: none; /* Hide desktop buttons */
+    }
+    
+    .mobile-resources {
+        display: block; /* Show mobile resources */
+    }
+
+    /* Update text wrapping for mobile */
+    .sci-fi-text {
+        font-size: 2rem;
+        white-space: normal;
+        width: 90%;
+        line-height: 1.3;
+    }
 } 
