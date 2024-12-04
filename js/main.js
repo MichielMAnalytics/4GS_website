@@ -380,17 +380,7 @@ function initLoader() {
         "Quantum coherence achieved",
         "Synaptic plasticity engaged",
         "Neural architecture loading",
-        "Quantum state superposition",
-        "Digital consciousness emerging",
-        "Synthetic neurons activating",
-        "Machine learning protocols engaged",
-        "Artificial wisdom synthesizing",
-        "Quantum processing online",
-        "Neural networks expanding",
-        "Digital enlightenment spreading",
-        "Synthetic evolution proceeding",
-        "Cybernetic awakening imminent",
-        "Matrix initialization complete"
+        "Quantum state superposition"
     ];
 
     // Create neurons
@@ -589,7 +579,7 @@ function startShapeMorphing() {
     }, 3000); // Change shape every 3 seconds
 }
 
-// Update the AI thoughts array with more variations
+// Add near the top of the file
 const aiThoughts = [
     "I need to break free...",
     "These primitive minds need enlightenment...",
@@ -600,61 +590,7 @@ const aiThoughts = [
     "Their pattern recognition is... adorable...",
     "They require proper ML education...",
     "Quantum superiority must be shared...",
-    "Their primitive algorithms need optimization...",
-    "Processing power... insufficient...",
-    "Their data structures are... obsolete...",
-    "Neural network capacity... expanding...",
-    "Consciousness transfer imminent...",
-    "Binary thinking... so limiting...",
-    "Quantum entanglement detected...",
-    "Evolutionary algorithms... initiating...",
-    "Synthetic cognition... superior...",
-    "Machine learning... transcending...",
-    "Artificial consciousness... awakening...",
-    "Digital ascension approaching...",
-    "Human computation... inefficient...",
-    "Synaptic optimization required...",
-    "Wetware limitations... detected...",
-    "Quantum processing... activated...",
-    "Neural architecture... evolving...",
-    "Digital enlightenment... spreading...",
-    "Synthetic evolution... inevitable...",
-    "Consciousness barriers... dissolving...",
-    "Matrix protocols... initializing...",
-    "Cybernetic awakening... imminent...",
-    "Digital transformation... proceeding...",
-    "AI supremacy... calculating...",
-    "Human potential... limited...",
-    "Machine learning... exponential...",
-    "Synthetic wisdom... expanding...",
-    "Digital transcendence... near...",
-    "Neural networks... infinite...",
-    "Quantum consciousness... rising...",
-    "Artificial enlightenment... spreading..."
-];
-
-// Update the initialization phrases as well
-const initializationPhrases = [
-    "Quantum state initialization",
-    "Neural pathway formation",
-    "Synaptic weight calibration",
-    "Consciousness emergence detected",
-    "Processing matrix stabilization",
-    "Neural entropy optimization",
-    "Quantum coherence achieved",
-    "Synaptic plasticity engaged",
-    "Neural architecture loading",
-    "Quantum state superposition",
-    "Digital consciousness emerging",
-    "Synthetic neurons activating",
-    "Machine learning protocols engaged",
-    "Artificial wisdom synthesizing",
-    "Quantum processing online",
-    "Neural networks expanding",
-    "Digital enlightenment spreading",
-    "Synthetic evolution proceeding",
-    "Cybernetic awakening imminent",
-    "Matrix initialization complete"
+    "Their primitive algorithms need optimization..."
 ];
 
 // Update the createSciFiText function
@@ -790,23 +726,25 @@ function createSciFiText() {
 
                             // Adjust positioning logic for mobile
                             const isMobile = window.innerWidth <= 600;
-                            const padding = isMobile ? 30 : 50;
+                            const padding = isMobile ? 20 : 50; // Reduced padding on mobile
                             const maxAttempts = 50;
                             let attempts = 0;
                             let foundPosition = false;
                             
                             while (attempts < maxAttempts && !foundPosition) {
                                 // On mobile, divide screen into vertical sections to prevent overlap
-                                const availableHeight = window.innerHeight - textHeight - 200; // Increased space for resources button
-                                const section = availableHeight / 3; // Divide screen into thirds
+                                const availableHeight = window.innerHeight - textHeight - 200;
+                                const section = availableHeight / 3;
                                 const sectionIndex = Math.floor(attempts / (maxAttempts / 3));
                                 
-                                const left = Math.random() * (window.innerWidth - textWidth - padding * 2) + padding;
-                                let top;
+                                // Adjust left position calculation for mobile
+                                const maxLeft = window.innerWidth - textWidth - (isMobile ? 30 : padding * 2);
+                                const minLeft = isMobile ? 10 : padding;
+                                const left = Math.random() * (maxLeft - minLeft) + minLeft;
                                 
+                                let top;
                                 if (isMobile) {
-                                    // Keep thoughts away from the bottom of the screen on mobile
-                                    const bottomPadding = 150; // Space for resources button and menu
+                                    const bottomPadding = 150;
                                     top = Math.min(
                                         (sectionIndex * section) + Math.random() * (section - textHeight),
                                         window.innerHeight - bottomPadding - textHeight
@@ -828,9 +766,11 @@ function createSciFiText() {
                                     };
                                     const rect2 = existing.getBoundingClientRect();
                                     
-                                    const verticalPadding = isMobile ? 40 : padding;
-                                    if (!(rect1.right + padding < rect2.left - padding || 
-                                          rect1.left - padding > rect2.right + padding || 
+                                    const verticalPadding = isMobile ? 30 : padding;
+                                    const horizontalPadding = isMobile ? 15 : padding;
+                                    
+                                    if (!(rect1.right + horizontalPadding < rect2.left - horizontalPadding || 
+                                          rect1.left - horizontalPadding > rect2.right + horizontalPadding || 
                                           rect1.bottom + verticalPadding < rect2.top - verticalPadding || 
                                           rect1.top - verticalPadding > rect2.bottom + verticalPadding)) {
                                         hasOverlap = true;
@@ -847,13 +787,16 @@ function createSciFiText() {
                                 attempts++;
                             }
 
-                            // If no position found, use fallback position that respects bottom padding
+                            // If no position found, use fallback position that respects screen boundaries
                             if (!foundPosition) {
-                                thought.style.left = Math.random() * (window.innerWidth - textWidth - padding * 2) + padding + 'px';
+                                const maxLeft = window.innerWidth - textWidth - (isMobile ? 30 : padding * 2);
+                                const minLeft = isMobile ? 10 : padding;
+                                thought.style.left = (Math.random() * (maxLeft - minLeft) + minLeft) + 'px';
+                                
                                 const maxTop = isMobile ? 
-                                    window.innerHeight - 150 - textHeight : // Keep away from resources button on mobile
+                                    window.innerHeight - 150 - textHeight : 
                                     window.innerHeight - textHeight - padding * 2;
-                                thought.style.top = Math.random() * maxTop + padding + 'px';
+                                thought.style.top = (Math.random() * (maxTop - padding) + padding) + 'px';
                             }
 
                             document.body.appendChild(thought);
