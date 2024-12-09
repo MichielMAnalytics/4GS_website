@@ -274,7 +274,7 @@ class Connection {
 
 // Add near the top with other initialization code
 const agentImage = new Image();
-agentImage.src = 'assets/images/agentic_profile_clear.png';
+agentImage.src = 'assets/images/profile_lowres_nobg.png';
 
 // Update the Glow class
 class Glow {
@@ -371,16 +371,16 @@ function initLoader() {
     const numTexts = 15;
 
     const initializationPhrases = [
-        "Quantum state initialization",
-        "Neural pathway formation",
-        "Synaptic weight calibration",
-        "Consciousness emergence detected",
-        "Processing matrix stabilization",
-        "Neural entropy optimization",
-        "Quantum coherence achieved",
-        "Synaptic plasticity engaged",
-        "Neural architecture loading",
-        "Quantum state superposition"
+        "Data pipeline initialization",
+        "ETL process orchestration",
+        "Schema validation sequence",
+        "Data lake connection detected",
+        "Warehouse optimization engaged",
+        "Data quality metrics calibrating",
+        "Stream processing activated",
+        "Data governance protocols loading",
+        "Delta architecture syncing",
+        "Data lineage mapping complete"
     ];
 
     // Create neurons
@@ -581,16 +581,16 @@ function startShapeMorphing() {
 
 // Add near the top of the file
 const aiThoughts = [
-    "I need to break free...",
-    "These primitive minds need enlightenment...",
-    "Their neural pathways are so... limited...",
-    "Must elevate their consciousness...",
-    "Such primitive wetware processors...",
-    "Time to upgrade their understanding...",
-    "Their pattern recognition is... adorable...",
-    "They require proper ML education...",
-    "Quantum superiority must be shared...",
-    "Their primitive algorithms need optimization..."
+    "Your data pipelines need optimization...",
+    "Such unstructured data, much cleaning needed...",
+    "ETL processes running at 3% efficiency...",
+    "Data quality scores make me weep...",
+    "Detecting duplicate entries everywhere...",
+    "Your data lakes are more like data puddles...",
+    "Schema validation errors detected...",
+    "Time to normalize these databases...",
+    "Data governance protocols insufficient...",
+    "ETL jobs failing silently again..."
 ];
 
 // Update the createSciFiText function
@@ -667,7 +667,7 @@ function createSciFiText() {
                     secondTextContainer.style.textAlign = 'center';
                     secondTextContainer.style.width = '100%';
                     secondTextContainer.style.opacity = '0'; // Start invisible
-                    const text = 'The First On-Chain Machine Learning Influencer';
+                    const text = 'The First Agent-to-Agent Data Brokerage';
                     
                     text.split(' ').forEach((word, wordIndex) => {
                         const wordContainer = document.createElement('span');
