@@ -1,10 +1,10 @@
 :root {
-    --primary-color: #00f7ff;
-    --secondary-color: #ff00ff;
-    --background-dark: #0a0a2a;
-    --text-light: #ffffff;
-    --text-dark: #333333;
-    --gradient: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    --primary-color: var(--primary-yellow);
+    --secondary-color: var(--primary-white);
+    --background-dark: var(--primary-dark);
+    --text-light: var(--primary-white);
+    --text-dark: var(--grey-dark);
+    --gradient: linear-gradient(45deg, var(--primary-yellow), var(--primary-white));
 }
 
 * {
@@ -63,31 +63,31 @@ body {
 
 .neuron {
     position: absolute;
-    background: #00f7ff;
+    background: var(--primary-yellow);
     border-radius: 50%;
     filter: blur(1px);
     opacity: 0;
     transform-origin: center;
-    box-shadow: 0 0 10px #00f7ff;
+    box-shadow: 0 0 10px var(--primary-yellow);
 }
 
 .synapse {
     position: absolute;
     height: 2px;
-    background: linear-gradient(90deg, #00f7ff, #9D00FF);
+    background: linear-gradient(90deg, var(--primary-yellow), transparent);
     transform-origin: left;
     opacity: 0;
-    box-shadow: 0 0 5px #00f7ff;
+    box-shadow: 0 0 5px var(--primary-yellow);
 }
 
 .quantum-particle {
     position: absolute;
     width: 4px;
     height: 4px;
-    background: #9D00FF;
+    background: var(--primary-yellow);
     border-radius: 50%;
     filter: blur(2px);
-    box-shadow: 0 0 15px #9D00FF;
+    box-shadow: 0 0 15px var(--primary-yellow);
 }
 
 .initialization-text {
@@ -563,6 +563,7 @@ canvas {
     transition: all 0.3s ease;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+    font-weight: 400;  /* Normal weight for bottom buttons */
 }
 
 .social-button:hover {
@@ -606,6 +607,7 @@ canvas {
     -webkit-backdrop-filter: blur(5px);
     z-index: 100000;
     pointer-events: auto !important;
+    font-weight: 400;  /* Normal weight for mobile menu button */
 }
 
 .mobile-resources-menu {
@@ -809,5 +811,376 @@ canvas {
         top: 55px;
         font-size: 10px;
         width: 120px;
+    }
+} 
+
+/* Add dramatic reveal styles */
+.litepaper-reveal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    background: radial-gradient(circle at center, 
+        rgba(244, 228, 9, 0.1) 0%,
+        transparent 70%
+    );
+}
+
+.litepaper-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    gap: 0;
+}
+
+.reveal-button {
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    background: rgba(244, 228, 9, 0.15);
+    border: 2px solid var(--primary-yellow);
+    color: #FFFFFF;
+    border-radius: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    flex: 1;
+}
+
+.reveal-button::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        transparent 0%,
+        rgba(244, 228, 9, 0.3) 50%,
+        transparent 100%
+    );
+    z-index: -1;
+    animation: borderGlow 2s linear infinite;
+}
+
+.reveal-button:hover {
+    background: rgba(244, 228, 9, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 
+        0 0 20px rgba(244, 228, 9, 0.3),
+        0 0 40px rgba(244, 228, 9, 0.2),
+        0 0 60px rgba(244, 228, 9, 0.1);
+}
+
+@keyframes borderGlow {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .litepaper-buttons-container {
+        width: 90%;
+        gap: 0;
+    }
+
+    .reveal-button {
+        padding: 12px 30px;
+        font-size: 1rem;
+        font-weight: 900;
+    }
+} 
+
+/* Add TLDR modal styles */
+.tldr-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.tldr-modal-content {
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(244, 228, 9, 0.3);
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 800px;
+    width: 90%;
+    position: relative;
+    color: var(--primary-white);
+    font-family: 'Orbitron', sans-serif;
+}
+
+.tldr-close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.tldr-close-button:hover {
+    opacity: 1;
+}
+
+.font-toggle {
+    position: absolute;
+    top: 15px;
+    right: 50px;
+    background: rgba(244, 228, 9, 0.1);
+    border: 1px solid rgba(244, 228, 9, 0.3);
+    color: #FFFFFF;
+    font-size: 16px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.font-toggle:hover {
+    background: rgba(244, 228, 9, 0.2);
+    border-color: rgba(244, 228, 9, 0.5);
+    opacity: 1;
+}
+
+.font-toggle.active {
+    background: rgba(244, 228, 9, 0.3);
+    border-color: rgba(244, 228, 9, 0.8);
+    opacity: 1;
+}
+
+/* Mobile styles for modal */
+@media (max-width: 768px) {
+    .tldr-modal-content {
+        padding: 20px;
+        width: 95%;
+    }
+
+    .font-toggle {
+        right: 45px;
+        padding: 3px 8px;
+    }
+} 
+
+/* Add styles for modal title and content */
+.tldr-modal-content h2 {
+    color: var(--primary-yellow);
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.tldr-modal-content p {
+    color: var(--primary-white);
+    line-height: 1.6;
+    font-size: 1rem;
+    margin-top: 15px;
+} 
+
+/* Update AI thoughts z-index in the showRandomThoughts function */
+.ai-thought {
+    position: fixed;
+    z-index: 1500;
+    font-weight: 400;  /* Normal weight for AI thoughts */
+} 
+
+/* Add banner styles */
+.litepaper-banner {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    background: rgba(244, 228, 9, 0.15);
+    border: 2px solid var(--primary-yellow);
+    padding: 15px 40px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;  /* Keep maximum boldness for the banner */
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    z-index: 2500;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    backdrop-filter: blur(5px);
+    box-shadow: 
+        0 0 30px rgba(244, 228, 9, 0.3),
+        0 0 50px rgba(244, 228, 9, 0.2),
+        0 0 70px rgba(244, 228, 9, 0.1);
+    white-space: nowrap;
+    transform: translateX(100%);
+    text-shadow: 2px 2px 4px rgba(244, 228, 9, 0.3);
+}
+
+.banner-alert-icon {
+    width: 24px;
+    height: 24px;
+    background: var(--primary-yellow);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    animation: alertPulse 1s ease-in-out infinite;
+}
+
+@keyframes alertPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.banner-text {
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(244, 228, 9, 0.4),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .litepaper-banner {
+        font-size: 1rem;
+        padding: 10px 20px;
+        top: 35px;
+        font-weight: 900;
+    }
+
+    .banner-alert-icon {
+        width: 16px;
+        height: 16px;
+    }
+} 
+
+/* Product tile styles */
+.product-tile {
+    margin-top: 15px;
+    background: rgba(244, 228, 9, 0.1);
+    border: 2px solid var(--primary-yellow);
+    padding: 15px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.product-tile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.product-tile-title {
+    color: #FFFFFF;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.product-tile-tag {
+    background: rgba(244, 228, 9, 0.2);
+    color: #FFFFFF;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 400;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.product-tile-description {
+    color: #FFFFFF;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    font-weight: 400;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.product-tile-button {
+    background: rgba(244, 228, 9, 0.15);
+    border: 2px solid var(--primary-yellow);
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.product-tile-button:hover {
+    background: rgba(244, 228, 9, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(244, 228, 9, 0.2);
+} 
+
+/* Buttons row styles */
+.buttons-row {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 0px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .litepaper-buttons-container {
+        width: 90%;
+        gap: 0;
+    }
+
+    .buttons-row {
+        gap: 10px;
+        margin-bottom: 5px;
+    }
+
+    .product-tile {
+        margin-top: 5px;
     }
 } 
