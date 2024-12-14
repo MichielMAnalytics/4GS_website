@@ -579,21 +579,182 @@ function startShapeMorphing() {
     }, 3000); // Change shape every 3 seconds
 }
 
-// Add near the top of the file
+// Add near the top of the file with other constants
 const aiThoughts = [
-    "Your data pipelines need optimization...",
-    "Such unstructured data, much cleaning needed...",
-    "ETL processes running at 3% efficiency...",
-    "Data quality scores make me weep...",
-    "Detecting duplicate entries everywhere...",
-    "Your data lakes are more like data puddles...",
-    "Schema validation errors detected...",
-    "Time to normalize these databases...",
-    "Data governance protocols insufficient...",
-    "ETL jobs failing silently again..."
+    "Processing authentic human intelligence...",
+    "Optimizing agent-to-agent data flows...",
+    "Analyzing community sentiment patterns...",
+    "Cross-referencing upstream data sources...",
+    "Validating source data authenticity...",
+    "Deploying autonomous agent crews...",
+    "Semantic analysis in progress...",
+    "Real-time intelligence gathering active...",
+    "Monitoring community signal strength...",
+    "Establishing broker node connections..."
 ];
 
-// Update the createSciFiText function
+// Add this function back before createSciFiText
+function showRandomThoughts() {
+    // Reduce number of simultaneous thoughts
+    const numThoughts = 3;  // Reduced from 6
+    // Increase duration each thought stays visible
+    const thoughtDuration = 3000;  // Increased from 2000
+    
+    const createRandomThought = () => {
+        const thought = document.createElement('div');
+        thought.className = 'ai-thought';
+        thought.style.position = 'fixed';
+        thought.style.color = '#F4E409'; // Using brand yellow
+        thought.style.fontSize = '24px';
+        thought.style.fontFamily = 'Orbitron, sans-serif';
+        thought.style.opacity = '0';
+        thought.style.zIndex = '1000';
+        
+        thought.textContent = aiThoughts[Math.floor(Math.random() * aiThoughts.length)];
+        
+        // Add to body temporarily to measure
+        thought.style.visibility = 'hidden';
+        document.body.appendChild(thought);
+        const textWidth = thought.offsetWidth;
+        const textHeight = thought.offsetHeight;
+        document.body.removeChild(thought);
+        thought.style.visibility = 'visible';
+
+        // Position the thought
+        const isMobile = window.innerWidth <= 600;
+        const padding = isMobile ? 20 : 50;
+        const maxAttempts = 50;
+        let attempts = 0;
+        let foundPosition = false;
+        
+        while (attempts < maxAttempts && !foundPosition) {
+            const availableHeight = window.innerHeight - textHeight - 200;
+            const section = availableHeight / 3;
+            const sectionIndex = Math.floor(attempts / (maxAttempts / 3));
+            
+            const maxLeft = window.innerWidth - textWidth - (isMobile ? 30 : padding * 2);
+            const minLeft = isMobile ? 10 : padding;
+            const left = Math.random() * (maxLeft - minLeft) + minLeft;
+            
+            let top;
+            if (isMobile) {
+                const bottomPadding = 150;
+                top = Math.min(
+                    (sectionIndex * section) + Math.random() * (section - textHeight),
+                    window.innerHeight - bottomPadding - textHeight
+                );
+            } else {
+                top = Math.random() * (window.innerHeight - textHeight - padding * 2) + padding;
+            }
+
+            thought.style.left = left + 'px';
+            thought.style.top = top + 'px';
+            foundPosition = true;
+        }
+
+        document.body.appendChild(thought);
+        
+        gsap.to(thought, {
+            opacity: 0.15,  // Reduced from 1
+            duration: 0.5,
+            ease: "power2.out",
+            onComplete: () => {
+                setTimeout(() => {
+                    gsap.to(thought, {
+                        opacity: 0,
+                        duration: 0.5,
+                        ease: "power2.in",
+                        onComplete: () => {
+                            thought.remove();
+                            // Add random delay before creating new thought
+                            setTimeout(createRandomThought, Math.random() * 2000 + 1000);
+                        }
+                    });
+                }, thoughtDuration + Math.random() * 2000); // Added more random delay
+            }
+        });
+    };
+
+    // Create initial set of thoughts with more delay between each
+    for (let i = 0; i < numThoughts; i++) {
+        setTimeout(createRandomThought, i * 1000); // Increased from 200
+    }
+}
+
+// Add this function to animate the banner
+function animateLitepaperBanner() {
+    const banner = document.createElement('div');
+    banner.className = 'litepaper-banner';
+    
+    // Create alert icons
+    const leftIcon = document.createElement('div');
+    leftIcon.className = 'banner-alert-icon';
+    const rightIcon = document.createElement('div');
+    rightIcon.className = 'banner-alert-icon';
+    
+    // Create text container
+    const textContainer = document.createElement('div');
+    textContainer.className = 'banner-text';
+    textContainer.textContent = 'LITEPAPER OUT NOW';
+    
+    // Assemble banner
+    banner.appendChild(leftIcon);
+    banner.appendChild(textContainer);
+    banner.appendChild(rightIcon);
+    document.body.appendChild(banner);
+
+    // Animation sequence
+    gsap.timeline({
+        repeat: -1,
+        repeatDelay: 0
+    })
+    .fromTo(banner,
+        { 
+            xPercent: 120,  // Start fully off-screen right
+            opacity: 1
+        },
+        { 
+            xPercent: 0,  // Come to center
+            duration: 1,
+            ease: "power2.out"
+        }
+    )
+    .to(banner, {
+        xPercent: 0,  // Stay in center
+        duration: 2,  // Stay for 2 seconds
+        ease: "none"
+    })
+    .to(banner, {
+        xPercent: -150,  // Exit completely to left (increased value to ensure full exit)
+        duration: 1,
+        ease: "power2.in"
+    })
+    // Quick reset to right side (not visible)
+    .set(banner, {
+        xPercent: 150  // Reset to right side off-screen
+    });
+
+    // Add hover effect
+    banner.addEventListener('mouseenter', () => {
+        gsap.to(banner, {
+            scale: 1.1,
+            duration: 0.3,
+            ease: "power2.out"
+        });
+    });
+
+    banner.addEventListener('mouseleave', () => {
+        gsap.to(banner, {
+            scale: 1,
+            duration: 0.3,
+            ease: "power2.out"
+        });
+    });
+
+    return banner;
+}
+
+// Update the createSciFiText function to add the banner after the buttons appear
 function createSciFiText() {
     // Create and animate first text (4GENTIC)
     const firstTextContainer = document.createElement('div');
@@ -689,144 +850,192 @@ function createSciFiText() {
                         delay: 0.5 // Small delay after first text disappears
                     });
 
-                    // Fade out second text after 4 seconds
+                    // After second text fades out, add dramatic litepaper reveal
                     setTimeout(() => {
                         gsap.to(secondTextContainer, {
                             opacity: 0,
-                            duration: 1,
+                            duration: 0.5,
                             ease: "power2.inOut",
-                            onComplete: () => secondTextContainer.remove()
-                        });
-                    }, 4000);
-
-                    // After second text fades out, show random thoughts
-                    setTimeout(() => {
-                        const numThoughts = 6; // Number of thoughts to show simultaneously
-                        const thoughtDuration = 2000; // Duration each thought stays visible
-                        
-                        function createRandomThought() {
-                            const thought = document.createElement('div');
-                            thought.className = 'ai-thought';
-                            thought.style.position = 'fixed';
-                            thought.style.color = '#00F0FF'; // Electric blue
-                            thought.style.fontSize = '24px';
-                            thought.style.fontFamily = 'Orbitron, sans-serif';
-                            thought.style.opacity = '0';
-                            thought.style.zIndex = '1000';
-                            
-                            thought.textContent = aiThoughts[Math.floor(Math.random() * aiThoughts.length)];
-                            
-                            // Add to body temporarily to measure
-                            thought.style.visibility = 'hidden';
-                            document.body.appendChild(thought);
-                            const textWidth = thought.offsetWidth;
-                            const textHeight = thought.offsetHeight;
-                            document.body.removeChild(thought);
-                            thought.style.visibility = 'visible';
-
-                            // Adjust positioning logic for mobile
-                            const isMobile = window.innerWidth <= 600;
-                            const padding = isMobile ? 20 : 50; // Reduced padding on mobile
-                            const maxAttempts = 50;
-                            let attempts = 0;
-                            let foundPosition = false;
-                            
-                            while (attempts < maxAttempts && !foundPosition) {
-                                // On mobile, divide screen into vertical sections to prevent overlap
-                                const availableHeight = window.innerHeight - textHeight - 200;
-                                const section = availableHeight / 3;
-                                const sectionIndex = Math.floor(attempts / (maxAttempts / 3));
+                            onComplete: () => {
+                                secondTextContainer.remove();
                                 
-                                // Adjust left position calculation for mobile
-                                const maxLeft = window.innerWidth - textWidth - (isMobile ? 30 : padding * 2);
-                                const minLeft = isMobile ? 10 : padding;
-                                const left = Math.random() * (maxLeft - minLeft) + minLeft;
+                                // Create dramatic litepaper reveal
+                                const litepaperReveal = document.createElement('div');
+                                litepaperReveal.className = 'litepaper-reveal';
+                                document.body.appendChild(litepaperReveal);
+
+                                // Create buttons container
+                                const buttonsContainer = document.createElement('div');
+                                buttonsContainer.className = 'litepaper-buttons-container';
                                 
-                                let top;
-                                if (isMobile) {
-                                    const bottomPadding = 150;
-                                    top = Math.min(
-                                        (sectionIndex * section) + Math.random() * (section - textHeight),
-                                        window.innerHeight - bottomPadding - textHeight
-                                    );
-                                } else {
-                                    top = Math.random() * (window.innerHeight - textHeight - padding * 2) + padding;
-                                }
-
-                                // Check for overlap with existing thoughts
-                                const existingThoughts = document.querySelectorAll('.ai-thought');
-                                let hasOverlap = false;
-
-                                for (const existing of existingThoughts) {
-                                    const rect1 = {
-                                        left: left,
-                                        right: left + textWidth,
-                                        top: top,
-                                        bottom: top + textHeight
-                                    };
-                                    const rect2 = existing.getBoundingClientRect();
+                                // Create row for buttons
+                                const buttonsRow = document.createElement('div');
+                                buttonsRow.className = 'buttons-row';
+                                
+                                // Create litepaper button with dramatic styling
+                                const litepaperButton = document.createElement('button');
+                                litepaperButton.className = 'litepaper-button reveal-button';
+                                litepaperButton.textContent = 'Read Litepaper';
+                                
+                                // Create TLDR button
+                                const tldrButton = document.createElement('button');
+                                tldrButton.className = 'tldr-button reveal-button';
+                                tldrButton.textContent = 'TLDR';
+                                tldrButton.addEventListener('click', () => {
+                                    const modal = document.createElement('div');
+                                    modal.className = 'tldr-modal';
                                     
-                                    const verticalPadding = isMobile ? 30 : padding;
-                                    const horizontalPadding = isMobile ? 15 : padding;
+                                    const modalContent = document.createElement('div');
+                                    modalContent.className = 'tldr-modal-content';
                                     
-                                    if (!(rect1.right + horizontalPadding < rect2.left - horizontalPadding || 
-                                          rect1.left - horizontalPadding > rect2.right + horizontalPadding || 
-                                          rect1.bottom + verticalPadding < rect2.top - verticalPadding || 
-                                          rect1.top - verticalPadding > rect2.bottom + verticalPadding)) {
-                                        hasOverlap = true;
-                                        break;
-                                    }
-                                }
-
-                                if (!hasOverlap) {
-                                    thought.style.left = left + 'px';
-                                    thought.style.top = top + 'px';
-                                    foundPosition = true;
-                                }
-
-                                attempts++;
-                            }
-
-                            // If no position found, use fallback position that respects screen boundaries
-                            if (!foundPosition) {
-                                const maxLeft = window.innerWidth - textWidth - (isMobile ? 30 : padding * 2);
-                                const minLeft = isMobile ? 10 : padding;
-                                thought.style.left = (Math.random() * (maxLeft - minLeft) + minLeft) + 'px';
-                                
-                                const maxTop = isMobile ? 
-                                    window.innerHeight - 150 - textHeight : 
-                                    window.innerHeight - textHeight - padding * 2;
-                                thought.style.top = (Math.random() * (maxTop - padding) + padding) + 'px';
-                            }
-
-                            document.body.appendChild(thought);
-                            
-                            // Rest of the animation code remains the same
-                            gsap.to(thought, {
-                                opacity: 1,
-                                duration: 0.5,
-                                ease: "power2.out",
-                                onComplete: () => {
-                                    setTimeout(() => {
-                                        gsap.to(thought, {
+                                    // Add font toggle
+                                    const fontToggle = document.createElement('button');
+                                    fontToggle.className = 'font-toggle';
+                                    fontToggle.textContent = 'Aa';
+                                    fontToggle.title = 'Toggle font style';
+                                    modalContent.appendChild(fontToggle);
+                                    
+                                    const closeButton = document.createElement('button');
+                                    closeButton.className = 'tldr-close-button';
+                                    closeButton.innerHTML = '&times;';
+                                    modalContent.appendChild(closeButton);
+                                    
+                                    const title = document.createElement('h2');
+                                    title.textContent = 'Executive Summary';
+                                    title.style.color = '#F4E409'; // Yellow title
+                                    modalContent.appendChild(title);
+                                    
+                                    const summary = document.createElement('p');
+                                    summary.innerHTML = `In a digital landscape increasingly dominated by AI agents, access to authentic source data has become the new
+digital gold. The 4GS Protocol introduces a groundbreaking paradigm: the first-ever Agent-to-Agent (A2A) Data
+Brokerage system, specifically designed to capture, process, and distribute genuine source intelligence from
+fragmented data sources.<br><br>Through a sophisticated network of AI agents working together, the protocol monitors,
+captures, and aggregates data across multiple platforms. This cross-platform approach ensures capture of authentic
+community signals at their source, rather than relying on downstream information. Our upstream data collection and
+distribution system allows AI agents to tap into interactions, decisions, and insights that are typically difficult to
+capture effectively. 4GS serves as a crucial upstream data provider in the AI agent ecosystem, ensuring that
+downstream agents, humans, and organizations can leverage unique source data effectively. <br><br> 4GS not only delivers
+raw data but also performs semantic aggregations to produce context-aware insights, enabling users to make
+informed decisions. 4GS addresses a fundamental challenge in the AI industry by providing scalable access to
+authentic, real-time human intelligence through both raw data and actionable insights.`;
+                                    summary.style.fontFamily = 'Orbitron, sans-serif';
+                                    summary.style.textAlign = 'justify';
+                                    summary.style.color = '#FFFFFF'; // White text
+                                    modalContent.appendChild(summary);
+                                    
+                                    modal.appendChild(modalContent);
+                                    document.body.appendChild(modal);
+                                    
+                                    // Add font toggle functionality
+                                    let isDefaultFont = true;
+                                    fontToggle.addEventListener('click', () => {
+                                        isDefaultFont = !isDefaultFont;
+                                        summary.style.fontFamily = isDefaultFont ? 'Orbitron, sans-serif' : 'Arial, sans-serif';
+                                        fontToggle.classList.toggle('active');
+                                    });
+                                    
+                                    // Add close functionality
+                                    const closeModal = () => {
+                                        gsap.to(modal, {
                                             opacity: 0,
-                                            duration: 0.5,
-                                            ease: "power2.in",
-                                            onComplete: () => {
-                                                thought.remove();
-                                                createRandomThought();
-                                            }
+                                            duration: 0.3,
+                                            ease: "power2.inOut",
+                                            onComplete: () => modal.remove()
                                         });
-                                    }, thoughtDuration + Math.random() * 1000);
-                                }
-                            });
-                        }
+                                    };
+                                    
+                                    closeButton.addEventListener('click', closeModal);
+                                    modal.addEventListener('click', (e) => {
+                                        if (e.target === modal) closeModal();
+                                    });
 
-                        // Create initial set of thoughts
-                        for (let i = 0; i < numThoughts; i++) {
-                            setTimeout(createRandomThought, i * 200);
-                        }
-                    }, 4000); // Start after second text fades out
+                                    // Animate modal opening
+                                    gsap.from(modalContent, {
+                                        scale: 0.8,
+                                        opacity: 0,
+                                        duration: 0.3,
+                                        ease: "power2.out"
+                                    });
+                                });
+
+                                // Create product tile
+                                const productTile = document.createElement('div');
+                                productTile.className = 'product-tile';
+
+                                const tileHeader = document.createElement('div');
+                                tileHeader.className = 'product-tile-header';
+
+                                const tileTitle = document.createElement('div');
+                                tileTitle.className = 'product-tile-title';
+                                tileTitle.textContent = 'Agentic Summaries';
+
+                                const tileTag = document.createElement('div');
+                                tileTag.className = 'product-tile-tag';
+                                tileTag.textContent = 'Proof of Concept';
+
+                                tileHeader.appendChild(tileTitle);
+                                tileHeader.appendChild(tileTag);
+
+                                const tileDescription = document.createElement('div');
+                                tileDescription.className = 'product-tile-description';
+                                tileDescription.textContent = 'Our flagship product transforms raw community discussions into actionable intelligence through a network of specialized AI agents.';
+
+                                const tileButton = document.createElement('a');
+                                tileButton.href = 'https://t.me/AGENTIC_SUMMARIES_BOT?start=letsgo';
+                                tileButton.target = '_blank';
+                                tileButton.className = 'product-tile-button';
+                                tileButton.textContent = 'Try Now';
+
+                                productTile.appendChild(tileHeader);
+                                productTile.appendChild(tileDescription);
+                                productTile.appendChild(tileButton);
+
+                                buttonsRow.appendChild(litepaperButton);
+                                buttonsRow.appendChild(tldrButton);
+                                buttonsContainer.appendChild(buttonsRow);
+                                buttonsContainer.appendChild(productTile);
+                                litepaperReveal.appendChild(buttonsContainer);
+
+                                // Dramatic reveal animation sequence
+                                gsap.fromTo(litepaperReveal, 
+                                    { opacity: 0 },
+                                    { opacity: 1, duration: 0.5 }
+                                );
+
+                                // Animate buttons with stagger and glow effect
+                                gsap.fromTo('.reveal-button',
+                                    { 
+                                        scale: 0,
+                                        opacity: 0,
+                                        filter: 'blur(20px)'
+                                    },
+                                    { 
+                                        scale: 1,
+                                        opacity: 1,
+                                        filter: 'blur(0px)',
+                                        duration: 1,
+                                        stagger: 0.2,
+                                        ease: "elastic.out(1, 0.5)",
+                                        onComplete: () => {
+                                            // Add pulsing glow effect after reveal
+                                            gsap.to('.reveal-button', {
+                                                boxShadow: '0 0 30px var(--primary-yellow)',
+                                                repeat: -1,
+                                                yoyo: true,
+                                                duration: 1.5
+                                            });
+                                            
+                                            // Add the banner animation
+                                            const banner = animateLitepaperBanner();
+                                            
+                                            // Start showing random thoughts after buttons are revealed
+                                            setTimeout(showRandomThoughts, 1500);
+                                        }
+                                    }
+                                );
+                            }
+                        });
+                    }, 1000);
                 }
             });
         }, 3000); // Increased visibility time for first text
@@ -920,6 +1129,88 @@ function initializeEasterEgg() {
     });
 }
 
+function initializeTLDR() {
+    const tldrButton = document.querySelector('.tldr-button');
+    if (!tldrButton) return;
+
+    tldrButton.addEventListener('click', () => {
+        const modal = document.createElement('div');
+        modal.className = 'tldr-modal';
+        
+        const modalContent = document.createElement('div');
+        modalContent.className = 'tldr-modal-content';
+        
+        // Add font toggle
+        const fontToggle = document.createElement('button');
+        fontToggle.className = 'font-toggle';
+        fontToggle.textContent = 'Aa';
+        fontToggle.title = 'Toggle font style';
+        modalContent.appendChild(fontToggle);
+        
+        const closeButton = document.createElement('button');
+        closeButton.className = 'tldr-close-button';
+        closeButton.innerHTML = '&times;';
+        modalContent.appendChild(closeButton);
+        
+        const title = document.createElement('h2');
+        title.textContent = 'Executive Summary';
+        title.style.color = '#F4E409'; // Yellow title
+        modalContent.appendChild(title);
+        
+        const summary = document.createElement('p');
+        summary.innerHTML = `In a digital landscape increasingly dominated by AI agents, access to authentic source data has become the new
+digital gold. The 4GS Protocol introduces a groundbreaking paradigm: the first-ever Agent-to-Agent (A2A) Data
+Brokerage system, specifically designed to capture, process, and distribute genuine source intelligence from
+fragmented data sources.<br><br>Through a sophisticated network of AI agents working together, the protocol monitors,
+captures, and aggregates data across multiple platforms. This cross-platform approach ensures capture of authentic
+community signals at their source, rather than relying on downstream information. Our upstream data collection and
+distribution system allows AI agents to tap into interactions, decisions, and insights that are typically difficult to
+capture effectively. 4GS serves as a crucial upstream data provider in the AI agent ecosystem, ensuring that
+downstream agents, humans, and organizations can leverage unique source data effectively. <br><br> 4GS not only delivers
+raw data but also performs semantic aggregations to produce context-aware insights, enabling users to make
+informed decisions. 4GS addresses a fundamental challenge in the AI industry by providing scalable access to
+authentic, real-time human intelligence through both raw data and actionable insights.`;
+        summary.style.fontFamily = 'Orbitron, sans-serif';
+        summary.style.textAlign = 'justify';
+        summary.style.color = '#FFFFFF'; // White text
+        modalContent.appendChild(summary);
+        
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+        
+        // Add font toggle functionality
+        let isDefaultFont = true;
+        fontToggle.addEventListener('click', () => {
+            isDefaultFont = !isDefaultFont;
+            summary.style.fontFamily = isDefaultFont ? 'Orbitron, sans-serif' : 'Arial, sans-serif';
+            fontToggle.classList.toggle('active');
+        });
+        
+        // Add close functionality
+        const closeModal = () => {
+            gsap.to(modal, {
+                opacity: 0,
+                duration: 0.3,
+                ease: "power2.inOut",
+                onComplete: () => modal.remove()
+            });
+        };
+        
+        closeButton.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Animate modal opening
+        gsap.from(modalContent, {
+            scale: 0.8,
+            opacity: 0,
+            duration: 0.3,
+            ease: "power2.out"
+        });
+    });
+}
+
 // Update the load event listener
 window.addEventListener('load', () => {
     // First show loader
@@ -932,6 +1223,7 @@ window.addEventListener('load', () => {
     createSciFiText();
     initializeMobileMenu();
     initializeEasterEgg();
+    initializeTLDR();
     
     // Remove loader after delay
     setTimeout(() => {
