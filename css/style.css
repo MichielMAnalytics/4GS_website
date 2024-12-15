@@ -1010,49 +1010,38 @@ canvas {
     .font-toggle,
     .full-litepaper-button,
     .tldr-close-button {
-        top: 10px;  /* Adjust top position */
+        position: absolute;
+        top: 10px !important;  /* Force consistent top position */
+        height: 24px !important;  /* Force consistent height */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0 6px;
     }
 
     .font-toggle {
-        right: 45px;  /* Keep position for Aa button */
-        padding: 3px 6px;
-        height: 24px;
+        right: 45px;
+        width: 30px;
         font-size: 12px;
-        width: 30px;  /* Set fixed width for Aa button */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        top: 10px;  /* Consistent top position */
     }
 
     .full-litepaper-button {
-        right: 80px;  /* Adjust to be closer to Aa button */
-        padding: 3px 6px;
-        height: 24px;
-        font-size: 11px;  /* Slightly smaller font */
-        width: auto;  /* Allow natural width */
-        white-space: nowrap;  /* Keep text in one line */
-        min-width: 95px;  /* Ensure minimum width */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        top: 10px;  /* Match font-toggle top position exactly */
-        line-height: 1;
-        margin-top: 0;  /* Remove any margin */
-        transform: translateY(0);  /* Ensure no transform affecting position */
+        right: 80px;
+        font-size: 11px;
+        min-width: 95px;
+        background: rgba(244, 228, 9, 0.1);
+        border: 1px solid rgba(244, 228, 9, 0.3);
+        border-radius: 5px;
+        text-decoration: none;
+        white-space: nowrap;
     }
 
     .tldr-close-button {
         right: 10px;
         font-size: 20px;
-        top: 10px;  /* Match other buttons */
         width: 24px;
-        height: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;  /* Remove padding that might affect position */
     }
 
     /* Ensure consistent height and alignment */
