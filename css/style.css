@@ -989,17 +989,88 @@ canvas {
 /* Mobile styles for modal */
 @media (max-width: 768px) {
     .tldr-modal-content {
-        padding: 20px;
+        padding: 40px 15px 20px;  /* Increased top padding for buttons */
         width: 95%;
+        max-height: 90vh;  /* Limit height on mobile */
+        overflow-y: auto;  /* Enable scrolling */
+        margin: 20px;
+    }
+
+    .tldr-modal-content p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-top: 10px;
+    }
+
+    .tldr-modal-content h2 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+
+    .font-toggle,
+    .full-litepaper-button,
+    .tldr-close-button {
+        top: 10px;  /* Adjust top position */
     }
 
     .font-toggle {
-        right: 40px;
-        padding: 3px 8px;
-        height: 28px;
-        line-height: 20px;
+        right: 35px;
+        padding: 3px 6px;
+        height: 24px;
+        font-size: 12px;
     }
-} 
+
+    .full-litepaper-button {
+        right: 65px;
+        padding: 3px 6px;
+        height: 24px;
+        font-size: 12px;
+        max-width: 100px;  /* Limit width */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .tldr-close-button {
+        right: 10px;
+        font-size: 20px;
+    }
+
+    /* Add smooth scrolling for modal content */
+    .tldr-modal-content {
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(244, 228, 9, 0.3) transparent;
+    }
+
+    /* Custom scrollbar styling */
+    .tldr-modal-content::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .tldr-modal-content::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .tldr-modal-content::-webkit-scrollbar-thumb {
+        background-color: rgba(244, 228, 9, 0.3);
+        border-radius: 3px;
+    }
+}
+
+/* Add styles for better touch interaction on mobile */
+@media (max-width: 768px) {
+    .tldr-modal {
+        cursor: auto;  /* Enable normal touch behavior */
+    }
+
+    .tldr-modal-content,
+    .font-toggle,
+    .full-litepaper-button,
+    .tldr-close-button {
+        cursor: auto;  /* Enable normal touch behavior */
+    }
+}
 
 /* Add styles for modal title and content */
 .tldr-modal-content h2 {
