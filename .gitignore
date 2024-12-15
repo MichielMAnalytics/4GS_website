@@ -5,9 +5,3 @@ character_card.txt
 .DS_Store
 Thumbs.db
 
-# Ignore node modules if you're using any
-node_modules/
-
-
-
-Litepaper.md
