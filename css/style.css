@@ -1022,6 +1022,7 @@ canvas {
         display: flex;
         align-items: center;
         justify-content: center;
+        top: 10px;  /* Consistent top position */
     }
 
     .full-litepaper-button {
@@ -1036,17 +1037,22 @@ canvas {
         align-items: center;
         justify-content: center;
         text-align: center;
+        top: 10px;  /* Match font-toggle top position exactly */
+        line-height: 1;
+        margin-top: 0;  /* Remove any margin */
+        transform: translateY(0);  /* Ensure no transform affecting position */
     }
 
     .tldr-close-button {
         right: 10px;
         font-size: 20px;
-        top: 8px;
-        width: 24px;  /* Set fixed width */
+        top: 10px;  /* Match other buttons */
+        width: 24px;
         height: 24px;
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 0;  /* Remove padding that might affect position */
     }
 
     /* Ensure consistent height and alignment */
