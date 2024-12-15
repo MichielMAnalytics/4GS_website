@@ -1334,8 +1334,6 @@ function initializeButtons() {
 
     // Create Read Litepaper button
     const litepaperButton = document.createElement('button');
-    litepaperButton.className = 'full-litepaper-button';
-    litepaperButton.textContent = 'Read Litepaper';
     document.body.appendChild(litepaperButton);
     console.log("Litepaper button created");
 
