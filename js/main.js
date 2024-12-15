@@ -710,28 +710,27 @@ function animateLitepaperBanner() {
     })
     .fromTo(banner,
         { 
-            xPercent: 120,  // Start fully off-screen right
+            xPercent: 120,  // Start position (off-screen right)
             opacity: 1
         },
         { 
-            xPercent: 0,  // Come to center
+            xPercent: 7,  // Change stop positions of banner
             duration: 1,
             ease: "power2.out"
         }
     )
     .to(banner, {
-        xPercent: 0,  // Stay in center
-        duration: 2,  // Stay for 2 seconds
+        xPercent: 7,  // Change stop positions of banner
+        duration: 2,
         ease: "none"
     })
     .to(banner, {
-        xPercent: -150,  // Exit completely to left (increased value to ensure full exit)
+        xPercent: -150,
         duration: 1,
         ease: "power2.in"
     })
-    // Quick reset to right side (not visible)
     .set(banner, {
-        xPercent: 150  // Reset to right side off-screen
+        xPercent: 150
     });
 
     // Add hover effect
@@ -876,6 +875,10 @@ function createSciFiText() {
                                 const litepaperButton = document.createElement('button');
                                 litepaperButton.className = 'litepaper-button reveal-button';
                                 litepaperButton.textContent = 'Read Litepaper';
+                                litepaperButton.addEventListener('click', () => {
+                                    // Open PDF in a new tab
+                                    window.open('assets/docs/Litepaper_4GS_Protocol.pdf', '_blank');
+                                });
                                 
                                 // Create TLDR button
                                 const tldrButton = document.createElement('button');
@@ -887,6 +890,14 @@ function createSciFiText() {
                                     
                                     const modalContent = document.createElement('div');
                                     modalContent.className = 'tldr-modal-content';
+                                    
+                                    // Add full litepaper button
+                                    const fullLitepaperButton = document.createElement('a');
+                                    fullLitepaperButton.className = 'full-litepaper-button';
+                                    fullLitepaperButton.textContent = 'Read Full Litepaper';
+                                    fullLitepaperButton.href = 'assets/docs/Litepaper_4GS_Protocol.pdf';
+                                    fullLitepaperButton.target = '_blank';
+                                    modalContent.appendChild(fullLitepaperButton);
                                     
                                     // Add font toggle
                                     const fontToggle = document.createElement('button');
@@ -906,18 +917,20 @@ function createSciFiText() {
                                     modalContent.appendChild(title);
                                     
                                     const summary = document.createElement('p');
-                                    summary.innerHTML = `In a digital landscape increasingly dominated by AI agents, access to authentic source data has become the new
-digital gold. The 4GS Protocol introduces a groundbreaking paradigm: the first-ever Agent-to-Agent (A2A) Data
-Brokerage system, specifically designed to capture, process, and distribute genuine source intelligence from
-fragmented data sources.<br><br>Through a sophisticated network of AI agents working together, the protocol monitors,
-captures, and aggregates data across multiple platforms. This cross-platform approach ensures capture of authentic
-community signals at their source, rather than relying on downstream information. Our upstream data collection and
-distribution system allows AI agents to tap into interactions, decisions, and insights that are typically difficult to
-capture effectively. 4GS serves as a crucial upstream data provider in the AI agent ecosystem, ensuring that
-downstream agents, humans, and organizations can leverage unique source data effectively. <br><br> 4GS not only delivers
-raw data but also performs semantic aggregations to produce context-aware insights, enabling users to make
-informed decisions. 4GS addresses a fundamental challenge in the AI industry by providing scalable access to
-authentic, real-time human intelligence through both raw data and actionable insights.`;
+                                    summary.innerHTML = `In a digital landscape increasingly dominated by AI agents, access to authentic source data has become the
+new digital gold. The 4GS Protocol introduces a groundbreaking paradigm: the first-ever Agent-to-Agent
+(A2A) Data Brokerage system, specifically designed to capture, process, and distribute genuine source
+intelligence from fragmented data sources. <br><br> Through a sophisticated network of AI agents working together,
+the protocol monitors, captures, and aggregates data across multiple platforms. This cross-platform approach
+ensures capture of authentic community signals at their source, rather than relying on downstream
+information. Our upstream data collection and distribution system allows AI agents to tap into interactions,
+decisions, and insights that are typically difficult to capture effectively. 4GS serves as a crucial upstream data
+provider in the AI agent ecosystem, ensuring that downstream agents, humans, and organizations can
+leverage unique source data effectively. <br><br> 
+
+4GS not only delivers raw data but also performs semantic aggregations to produce context-aware insights, enabling users to make informed decisions. 4GS addresses a
+fundamental challenge in the AI industry by providing scalable access to authentic, real-time human
+intelligence through both raw data and actionable insights.`;
                                     summary.style.fontFamily = 'Orbitron, sans-serif';
                                     summary.style.textAlign = 'justify';
                                     summary.style.color = '#FFFFFF'; // White text
@@ -1140,6 +1153,14 @@ function initializeTLDR() {
         const modalContent = document.createElement('div');
         modalContent.className = 'tldr-modal-content';
         
+        // Add full litepaper button
+        const fullLitepaperButton = document.createElement('a');
+        fullLitepaperButton.className = 'full-litepaper-button';
+        fullLitepaperButton.textContent = 'Read Full Litepaper';
+        fullLitepaperButton.href = 'assets/docs/Litepaper_4GS_Protocol.pdf';
+        fullLitepaperButton.target = '_blank';
+        modalContent.appendChild(fullLitepaperButton);
+        
         // Add font toggle
         const fontToggle = document.createElement('button');
         fontToggle.className = 'font-toggle';
@@ -1241,4 +1262,52 @@ window.addEventListener('load', () => {
 window.addEventListener('resize', () => {
     resizeCanvas();
     initializeNeurons();
+});
+
+// Add near the end of the window.addEventListener('load', ...) function
+function initializeCoingeckoButton() {
+    const coingeckoButtons = document.querySelectorAll('.coingecko-button');
+    let tooltip = null;
+
+    coingeckoButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Remove existing tooltip if any
+            if (tooltip) {
+                tooltip.remove();
+            }
+
+            // Create new tooltip
+            tooltip = document.createElement('div');
+            tooltip.className = 'tooltip';
+            tooltip.textContent = 'Soon 👀';
+            document.body.appendChild(tooltip);
+
+            // Position tooltip near the click
+            const rect = button.getBoundingClientRect();
+            tooltip.style.left = `${rect.left}px`;
+            tooltip.style.top = `${rect.top - 40}px`; // Position above the button
+
+            // Show tooltip
+            requestAnimationFrame(() => {
+                tooltip.style.opacity = '1';
+            });
+
+            // Hide and remove tooltip after delay
+            setTimeout(() => {
+                tooltip.style.opacity = '0';
+                setTimeout(() => {
+                    tooltip.remove();
+                    tooltip = null;
+                }, 300);
+            }, 2000);
+        });
+    });
+}
+
+// Add to your existing initialization code
+window.addEventListener('load', () => {
+    // ... existing code ...
+    initializeCoingeckoButton();
 }); 
