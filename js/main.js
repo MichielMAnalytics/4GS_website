@@ -684,7 +684,7 @@ function showRandomThoughts() {
     }
 }
 
-// Add this function to animate the banner
+// Update the animateLitepaperBanner function
 function animateLitepaperBanner() {
     const banner = document.createElement('div');
     banner.className = 'litepaper-banner';
@@ -706,52 +706,73 @@ function animateLitepaperBanner() {
     banner.appendChild(rightIcon);
     document.body.appendChild(banner);
 
-    // Animation sequence
-    gsap.timeline({
-        repeat: -1,
-        repeatDelay: 0
-    })
-    .fromTo(banner,
-        { 
-            xPercent: 120,  // Start position (off-screen right)
-            opacity: 1
-        },
-        { 
-            xPercent: 7,  // Change stop positions of banner
+    // Check if mobile
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+        // Mobile animation sequence
+        gsap.timeline({
+            repeat: -1,
+            repeatDelay: 0
+        })
+        .fromTo(banner,
+            { 
+                xPercent: 100,
+                opacity: 1
+            },
+            { 
+                xPercent: 0,
+                duration: 1,
+                ease: "power2.out",
+                className: 'litepaper-banner mobile-position'
+            }
+        )
+        .to(banner, {
+            xPercent: 0,
+            duration: 2,
+            ease: "none"
+        })
+        .to(banner, {
+            xPercent: -100,
             duration: 1,
-            ease: "power2.out"
-        }
-    )
-    .to(banner, {
-        xPercent: 7,  // Change stop positions of banner
-        duration: 2,
-        ease: "none"
-    })
-    .to(banner, {
-        xPercent: -150,
-        duration: 1,
-        ease: "power2.in"
-    })
-    .set(banner, {
-        xPercent: 150
-    });
-
-    // Add hover effect
-    banner.addEventListener('mouseenter', () => {
-        gsap.to(banner, {
-            scale: 1.1,
-            duration: 0.3,
-            ease: "power2.out"
+            ease: "power2.in",
+            className: 'litepaper-banner mobile-exit'
+        })
+        .set(banner, {
+            xPercent: 100,
+            className: 'litepaper-banner'
         });
-    });
-
-    banner.addEventListener('mouseleave', () => {
-        gsap.to(banner, {
-            scale: 1,
-            duration: 0.3,
-            ease: "power2.out"
+    } else {
+        // Desktop animation (keep existing animation)
+        gsap.timeline({
+            repeat: -1,
+            repeatDelay: 0
+        })
+        .fromTo(banner,
+            { 
+                xPercent: 120,
+                opacity: 1
+            },
+            { 
+                xPercent: 7,
+                duration: 1,
+                ease: "power2.out"
+            }
+        )
+        .to(banner, {
+            xPercent: 7,
+            duration: 2,
+            ease: "none"
+        })
+        .to(banner, {
+            xPercent: -150,
+            duration: 1,
+            ease: "power2.in"
+        })
+        .set(banner, {
+            xPercent: 150
         });
-    });
+    }
 
     return banner;
 }
