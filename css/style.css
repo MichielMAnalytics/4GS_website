@@ -1014,34 +1014,46 @@ canvas {
     }
 
     .font-toggle {
-        right: 45px;  /* Adjust to make room for close button */
+        right: 45px;  /* Keep position for Aa button */
         padding: 3px 6px;
         height: 24px;
         font-size: 12px;
+        width: 30px;  /* Set fixed width for Aa button */
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .full-litepaper-button {
-        right: 85px;  /* Position directly next to font toggle */
+        right: 80px;  /* Adjust to be closer to Aa button */
         padding: 3px 6px;
         height: 24px;
-        font-size: 12px;
-        max-width: 120px;  /* Slightly increased for better text display */
+        font-size: 11px;  /* Slightly smaller font */
+        width: auto;  /* Allow natural width */
+        white-space: nowrap;  /* Keep text in one line */
+        min-width: 95px;  /* Ensure minimum width */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
 
     .tldr-close-button {
         right: 10px;
         font-size: 20px;
-        top: 8px;  /* Slight adjustment to align with other buttons */
+        top: 8px;
+        width: 24px;  /* Set fixed width */
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     /* Ensure consistent height and alignment */
     .font-toggle,
     .full-litepaper-button {
         top: 10px;
-        line-height: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        line-height: 1;
     }
 
     /* Add smooth scrolling for modal content */
