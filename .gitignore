@@ -1,2 +1,13 @@
 server.py
 character_card.txt
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore node modules if you're using any
+node_modules/
+
+
+
+Litepaper.md

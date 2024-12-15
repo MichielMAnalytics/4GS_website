@@ -432,7 +432,7 @@ canvas {
     width: 30px;
     height: 30px;
     pointer-events: none;
-    z-index: 10000;
+    z-index: 100000;
     mix-blend-mode: screen;
     transition: transform 0.1s ease;
     background: radial-gradient(circle, 
@@ -548,7 +548,7 @@ canvas {
     left: 20px;
     display: flex;
     gap: 10px;
-    z-index: 1000;
+    z-index: 100001;
 }
 
 .social-button {
@@ -587,6 +587,7 @@ canvas {
 /* Mobile Resources Menu */
 .mobile-resources {
     display: none; /* Hidden by default */
+    z-index: 100001;
 }
 
 .mobile-resources-button {
@@ -605,7 +606,7 @@ canvas {
     transition: all 0.3s ease;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    z-index: 100000;
+    z-index: 100001;
     pointer-events: auto !important;
     font-weight: 400;  /* Normal weight for mobile menu button */
 }
@@ -843,7 +844,7 @@ canvas {
     padding: 15px 40px;
     font-size: 1.2rem;
     background: rgba(244, 228, 9, 0.15);
-    border: 2px solid var(--primary-yellow);
+    border: 2px solid #F4E409;
     color: #FFFFFF;
     border-radius: 8px;
     font-family: 'Orbitron', sans-serif;
@@ -919,6 +920,7 @@ canvas {
     z-index: 99999;
     backdrop-filter: blur(5px);
     animation: fadeIn 0.3s ease-out;
+    cursor: none;
 }
 
 .tldr-modal-content {
@@ -931,6 +933,7 @@ canvas {
     position: relative;
     color: var(--primary-white);
     font-family: 'Orbitron', sans-serif;
+    cursor: none;
 }
 
 .tldr-close-button {
@@ -955,16 +958,20 @@ canvas {
 .font-toggle {
     position: absolute;
     top: 15px;
-    right: 50px;
+    right: 45px;
     background: rgba(244, 228, 9, 0.1);
     border: 1px solid rgba(244, 228, 9, 0.3);
     color: #FFFFFF;
     font-size: 16px;
     padding: 5px 10px;
-    cursor: pointer;
+    height: 32px;
+    line-height: 22px;
+    cursor: none;
     border-radius: 5px;
     transition: all 0.3s ease;
     opacity: 0.8;
+    display: inline-flex;
+    align-items: center;
 }
 
 .font-toggle:hover {
@@ -987,8 +994,10 @@ canvas {
     }
 
     .font-toggle {
-        right: 45px;
+        right: 40px;
         padding: 3px 8px;
+        height: 28px;
+        line-height: 20px;
     }
 } 
 
@@ -1019,7 +1028,7 @@ canvas {
     top: 40px;
     left: 0;
     background: rgba(244, 228, 9, 0.15);
-    border: 2px solid var(--primary-yellow);
+    border: 2px solid #F4E409;
     padding: 15px 40px;
     font-family: 'Orbitron', sans-serif;
     font-size: 1.5rem;
@@ -1027,7 +1036,7 @@ canvas {
     color: #FFFFFF;
     text-transform: uppercase;
     letter-spacing: 3px;
-    z-index: 2500;
+    z-index: 99998;
     display: flex;
     align-items: center;
     gap: 20px;
@@ -1044,9 +1053,10 @@ canvas {
 .banner-alert-icon {
     width: 24px;
     height: 24px;
-    background: var(--primary-yellow);
+    background: #FF0000;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
     animation: alertPulse 1s ease-in-out infinite;
+    filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.5));
 }
 
 @keyframes alertPulse {
@@ -1099,7 +1109,7 @@ canvas {
 .product-tile {
     margin-top: 15px;
     background: rgba(244, 228, 9, 0.1);
-    border: 2px solid var(--primary-yellow);
+    border: 2px solid #F4E409;
     padding: 15px;
     border-radius: 8px;
     width: 100%;
@@ -1142,7 +1152,7 @@ canvas {
 
 .product-tile-button {
     background: rgba(244, 228, 9, 0.15);
-    border: 2px solid var(--primary-yellow);
+    border: 2px solid #F4E409;
     color: #FFFFFF;
     padding: 10px 20px;
     border-radius: 8px;
@@ -1184,3 +1194,81 @@ canvas {
         margin-top: 5px;
     }
 } 
+
+/* Add styles for the full litepaper button */
+.full-litepaper-button {
+    position: absolute;
+    top: 15px;
+    right: 90px;
+    background: rgba(244, 228, 9, 0.1);
+    border: 1px solid rgba(244, 228, 9, 0.3);
+    color: #FFFFFF;
+    font-size: 14px;
+    padding: 5px 10px;
+    height: 32px;
+    line-height: 22px;
+    cursor: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    font-family: 'Orbitron', sans-serif;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.full-litepaper-button:hover {
+    background: rgba(244, 228, 9, 0.2);
+    border-color: rgba(244, 228, 9, 0.5);
+    opacity: 1;
+}
+
+/* Update mobile styles */
+@media (max-width: 768px) {
+    .full-litepaper-button {
+        right: 80px;
+        padding: 3px 8px;
+        font-size: 12px;
+        height: 28px;
+        line-height: 20px;
+    }
+} 
+
+/* Ensure buttons still show pointer cursor on hover */
+.tldr-close-button,
+.font-toggle,
+.full-litepaper-button {
+    cursor: none;
+}
+
+/* Update z-index of cursor-globe to be above modal */
+.cursor-globe {
+    z-index: 100000;
+}
+
+/* Add tooltip styles */
+.tooltip {
+    position: fixed;
+    background: rgba(244, 228, 9, 0.15);
+    border: 1px solid #F4E409;
+    color: #FFFFFF;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 100002;
+    white-space: nowrap;
+}
+
+/* Mobile styles for tooltip */
+@media (max-width: 768px) {
+    .tooltip {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
