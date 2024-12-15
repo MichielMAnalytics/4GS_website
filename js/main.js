@@ -1,6 +1,9 @@
 // Add at the top of the file
 gsap.registerPlugin(MotionPathPlugin);
 
+// Add at the top of the file, after the gsap registration
+console.log("Main.js loading started");
+
 // Neural Network Visualization
 const canvas = document.getElementById('neural-network');
 const ctx = canvas.getContext('2d');
@@ -1234,28 +1237,34 @@ authentic, real-time human intelligence through both raw data and actionable ins
 
 // Update the load event listener
 window.addEventListener('load', () => {
-    // First show loader
-    initLoader();
-    
-    // Initialize main visualization
-    initializeNeurons();
-    animate();
-    startShapeMorphing();
-    createSciFiText();
-    initializeMobileMenu();
-    initializeEasterEgg();
-    initializeTLDR();
-    
-    // Remove loader after delay
-    setTimeout(() => {
-        const loader = document.querySelector('.loader');
-        if (loader) {
-            loader.style.opacity = '0';
-            setTimeout(() => {
-                loader.style.display = 'none';
-            }, 500);
-        }
-    }, 3000);
+    console.log("Window load event fired");
+    try {
+        initializeButtons();
+        // First show loader
+        initLoader();
+        
+        // Initialize main visualization
+        initializeNeurons();
+        animate();
+        startShapeMorphing();
+        createSciFiText();
+        initializeMobileMenu();
+        initializeEasterEgg();
+        initializeTLDR();
+        
+        // Remove loader after delay
+        setTimeout(() => {
+            const loader = document.querySelector('.loader');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }
+        }, 3000);
+    } catch (error) {
+        console.error("Error during initialization:", error);
+    }
 });
 
 // Handle window resize
@@ -1310,4 +1319,41 @@ function initializeCoingeckoButton() {
 window.addEventListener('load', () => {
     // ... existing code ...
     initializeCoingeckoButton();
-}); 
+});
+
+// Add before initializing buttons
+function initializeButtons() {
+    console.log("Initializing buttons...");
+    
+    // Create TLDR button
+    const tldrButton = document.createElement('button');
+    tldrButton.className = 'tldr-button';
+    tldrButton.textContent = 'TLDR';
+    document.body.appendChild(tldrButton);
+    console.log("TLDR button created");
+
+    // Create Read Litepaper button
+    const litepaperButton = document.createElement('button');
+    litepaperButton.className = 'full-litepaper-button';
+    litepaperButton.textContent = 'Read Litepaper';
+    document.body.appendChild(litepaperButton);
+    console.log("Litepaper button created");
+
+    // Add event listeners
+    tldrButton.addEventListener('click', () => {
+        console.log("TLDR button clicked");
+        // ... rest of click handler code
+    });
+
+    litepaperButton.addEventListener('click', () => {
+        console.log("Litepaper button clicked");
+        // ... rest of click handler code
+    });
+}
+
+// Add error handling for GSAP
+if (typeof gsap === 'undefined') {
+    console.error("GSAP not loaded!");
+} else {
+    console.log("GSAP loaded successfully");
+} 
