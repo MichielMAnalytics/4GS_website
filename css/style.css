@@ -1014,26 +1014,34 @@ canvas {
     }
 
     .font-toggle {
-        right: 35px;
+        right: 45px;  /* Adjust to make room for close button */
         padding: 3px 6px;
         height: 24px;
         font-size: 12px;
     }
 
     .full-litepaper-button {
-        right: 65px;
+        right: 85px;  /* Position directly next to font toggle */
         padding: 3px 6px;
         height: 24px;
         font-size: 12px;
-        max-width: 100px;  /* Limit width */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        max-width: 120px;  /* Slightly increased for better text display */
     }
 
     .tldr-close-button {
         right: 10px;
         font-size: 20px;
+        top: 8px;  /* Slight adjustment to align with other buttons */
+    }
+
+    /* Ensure consistent height and alignment */
+    .font-toggle,
+    .full-litepaper-button {
+        top: 10px;
+        line-height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     /* Add smooth scrolling for modal content */
@@ -1168,6 +1176,18 @@ canvas {
         padding: 10px 20px;
         top: 35px;
         font-weight: 900;
+        width: 100%;  /* Set fixed width for mobile */
+        box-sizing: border-box;
+        transform: translateX(100%);  /* Start position */
+    }
+
+    /* Override GSAP animation positions for mobile */
+    .litepaper-banner.mobile-position {
+        transform: translateX(0) !important;  /* Stop position in middle */
+    }
+
+    .litepaper-banner.mobile-exit {
+        transform: translateX(-100%) !important;  /* Exit position */
     }
 
     .banner-alert-icon {
