@@ -1295,54 +1295,6 @@ window.addEventListener('resize', () => {
 });
 
 // Add near the end of the window.addEventListener('load', ...) function
-function initializeCoingeckoButton() {
-    const coingeckoButtons = document.querySelectorAll('.coingecko-button');
-    let tooltip = null;
-
-    coingeckoButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Remove existing tooltip if any
-            if (tooltip) {
-                tooltip.remove();
-            }
-
-            // Create new tooltip
-            tooltip = document.createElement('div');
-            tooltip.className = 'tooltip';
-            tooltip.textContent = 'Soon 👀';
-            document.body.appendChild(tooltip);
-
-            // Position tooltip near the click
-            const rect = button.getBoundingClientRect();
-            tooltip.style.left = `${rect.left}px`;
-            tooltip.style.top = `${rect.top - 40}px`; // Position above the button
-
-            // Show tooltip
-            requestAnimationFrame(() => {
-                tooltip.style.opacity = '1';
-            });
-
-            // Hide and remove tooltip after delay
-            setTimeout(() => {
-                tooltip.style.opacity = '0';
-                setTimeout(() => {
-                    tooltip.remove();
-                    tooltip = null;
-                }, 300);
-            }, 2000);
-        });
-    });
-}
-
-// Add to your existing initialization code
-window.addEventListener('load', () => {
-    // ... existing code ...
-    initializeCoingeckoButton();
-});
-
-// Add before initializing buttons
 function initializeButtons() {
     console.log("Initializing buttons...");
     
